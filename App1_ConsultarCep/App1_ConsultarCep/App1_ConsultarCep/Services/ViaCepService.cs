@@ -10,7 +10,7 @@ namespace App1_ConsultarCep.Services
 {
     public class ViaCepService
     {
-        private static string EnderecoURL = "http://viacep.com.br/ws{0}/json/";
+        private static string EnderecoURL = "http://viacep.com.br/ws/{0}/json/";
 
         public static Endereco BuscarEnderecoViaCep(string cep)
         {
@@ -20,6 +20,8 @@ namespace App1_ConsultarCep.Services
             string conteudo = wc.DownloadString(NovoEnderecoURL);
 
             Endereco end = JsonConvert.DeserializeObject<Endereco>(conteudo);
+
+            if (end.Cep == null) return null;
 
             return end;
         }
